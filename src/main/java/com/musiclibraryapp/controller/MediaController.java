@@ -14,6 +14,7 @@ import com.musiclibraryapp.dto.SongDTO;
 import com.musiclibraryapp.entity.Album;
 import com.musiclibraryapp.repository.AlbumRepository;
 import com.musiclibraryapp.service.AlbumService;
+import com.musiclibraryapp.service.SongService;
 
 @RestController
 //@CrossOrigin(origins = "http://localhost:4200")
@@ -25,10 +26,14 @@ public class MediaController {
 	@Autowired
 	AlbumService albumService;
 	
+	@Autowired
+	SongService songService;
+	
 	@PostMapping("/create-album")
     public ResponseEntity<AlbumDTO> createAlbum(@RequestBody AlbumDTO albumDTO) {
         // Implement the logic to create a new album and return it
-		albumService.createAlbum(albumDTO);
+		Album newAlbum = albumService.createAlbum(albumDTO);
+		songService.createSong(albumDTO.getAlbumSongs());
 		return ResponseEntity.noContent().build();
     }
 
