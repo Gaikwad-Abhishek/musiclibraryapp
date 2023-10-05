@@ -3,6 +3,8 @@ package com.musiclibraryapp.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.musiclibraryapp.dto.EntityDTOMapper;
+import com.musiclibraryapp.dto.SongDTO;
 import com.musiclibraryapp.entity.Song;
 import com.musiclibraryapp.repository.SongRepository;
 
@@ -12,7 +14,10 @@ import java.util.Optional;
 @Service
 public class SongService {
     private final SongRepository songRepository;
-
+    
+    @Autowired
+    EntityDTOMapper dtoMapper;
+    
     @Autowired
     public SongService(SongRepository songRepository) {
         this.songRepository = songRepository;
@@ -28,6 +33,17 @@ public class SongService {
 
     public Song createSong(Song song) {
         return songRepository.save(song);
+    }
+    
+    public boolean createSong(List<SongDTO> songs) {
+    	
+    	for(SongDTO song : songs) {
+    		
+    		songRepository.save(dtoMapper.convertToSong(song));
+    	
+    	}
+        
+    	return true;
     }
 
     public Song updateSong(Long songId, Song updatedSong) {

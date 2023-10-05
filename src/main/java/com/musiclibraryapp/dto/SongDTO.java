@@ -1,11 +1,28 @@
 package com.musiclibraryapp.dto;
 
+import java.util.Date;
+
+import com.musiclibraryapp.entity.Genre;
+
 public class SongDTO {
+    
+	private Long songId;  
     private String songTitle;
     private Double songDuration;
     private Long streams;
+    private Genre genre;  
+    private AlbumDTO album;  
+    private Date createdAt;
 
     // Constructors, getters, setters, and other methods
+
+    public Long getSongId() {
+        return songId;
+    }
+
+    public void setSongId(Long songId) {
+        this.songId = songId;
+    }
 
     public String getSongTitle() {
         return songTitle;
@@ -31,5 +48,28 @@ public class SongDTO {
         this.streams = streams;
     }
 
+    public Genre getGenre() {
+        return genre;
+    }
+
+    public void setGenre(Genre genre) {
+        this.genre = genre;
+    }
+
+    public AlbumDTO getAlbum() {
+        return album;
+    }
+
+    public void setAlbum(AlbumDTO album) {
+        this.album = album;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
 }
 
