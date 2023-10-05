@@ -16,6 +16,7 @@ import com.musiclibraryapp.dto.AlbumDTO;
 import com.musiclibraryapp.dto.SearchDTO;
 import com.musiclibraryapp.entity.ArtistSong;
 import com.musiclibraryapp.entity.Song;
+import com.musiclibraryapp.service.AlbumService;
 import com.musiclibraryapp.service.ArtistSongService;
 import com.musiclibraryapp.service.SongService;
 
@@ -31,6 +32,9 @@ public class SearchController {
     @Autowired
     ArtistSongService artistSongService;
 
+    @Autowired
+    AlbumService albumService;
+
 
     @PostMapping("/by")
     public ResponseEntity<List> serchBy(@RequestBody SearchDTO searchDTO){
@@ -41,6 +45,9 @@ public class SearchController {
         }
         if(searchDTO.getSearchBy().equals("Artist")){
             return ResponseEntity.status(HttpStatus.OK).body(searchByArtist(searchDTO.getSearchTitle()));
+        }
+        if(searchDTO.getSearchBy().equals("Album")){
+            return ResponseEntity.status(HttpStatus.OK).body(searchByAlbum(searchDTO.getSearchTitle()));
         }
   
         return ResponseEntity.status(HttpStatus.OK).body(DummyList);
@@ -58,6 +65,13 @@ public class SearchController {
         List allSong = new ArrayList<>();
         allSong = artistSongService.findSongsByPartialArtistName(searchTitle);
         return allSong;
+    }
+
+    public List searchByAlbum(String searchTitle){
+        System.out.println("Inside search by Album");
+        List allAlbum = new ArrayList<>();
+        allAlbum = albumService.findTop5AlbumsByPartialAlbumName(searchTitle);
+        return allAlbum;
     }
 
 
