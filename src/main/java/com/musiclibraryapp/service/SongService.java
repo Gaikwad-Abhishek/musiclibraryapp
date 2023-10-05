@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.musiclibraryapp.dto.EntityDTOMapper;
 import com.musiclibraryapp.dto.SongDTO;
+import com.musiclibraryapp.dto.UserDTO;
 import com.musiclibraryapp.entity.Album;
 import com.musiclibraryapp.entity.Genre;
 import com.musiclibraryapp.entity.Song;
@@ -59,9 +60,12 @@ public class SongService {
 	        song.setStreams(songDTO.getStreams());
 	        song.setGenreId(genreService.getGenreById(songDTO.getGenreId()).get());
 	        song.setAlbumId(album);
-	
+	        System.out.println(songDTO.getArtist());
     		songRepository.save(song);
-
+//    		for(UserDTO artist: songDTO.getArtist()) {
+//    			artistSongService.createArtistSong(artist, song);
+//    			System.out.println(artist);
+//    		}
             artistSongService.createArtistSong(user, song);
     	
     	}
@@ -88,4 +92,8 @@ public class SongService {
         //return songRepository.findByPartialSongTitle(partialTitle);
         return songRepository.findByPartialSongTitleWithTop2Streams(partialTitle);
     }
+    
+//    public List<Song> getSongbyGenre(Long genreId){
+//    	return songRepository.findSongWithGenreId(genreId);
+//    }
 }

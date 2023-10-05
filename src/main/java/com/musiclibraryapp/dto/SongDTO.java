@@ -1,8 +1,9 @@
 package com.musiclibraryapp.dto;
 
 import java.util.Date;
+import java.util.List;
 
-import com.musiclibraryapp.entity.Genre;
+import com.musiclibraryapp.entity.User;
 
 public class SongDTO {
     
@@ -10,9 +11,11 @@ public class SongDTO {
     private String songTitle;
     private Double songDuration;
     private Long streams;
-    private Long genreId;  
+    private Long genreId;
+    private List<UserDTO> aristList;
     private AlbumDTO album;  
     private Date createdAt;
+    
 
     // Constructors, getters, setters, and other methods
 
@@ -70,6 +73,14 @@ public class SongDTO {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+    
+    public void setArtist(List<UserDTO> artistList){
+    	this.aristList = artistList;
+    }
+    
+    public List<UserDTO> getArtist(){
+    	return aristList;
     }
 }
 
