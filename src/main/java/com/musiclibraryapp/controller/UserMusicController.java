@@ -2,6 +2,7 @@ package com.musiclibraryapp.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.musiclibraryapp.dto.PlaylistDTO;
+import com.musiclibraryapp.entity.Playlist;
+import com.musiclibraryapp.service.PlaylistService;
 
 @RestController
 //@CrossOrigin(origins = "http://localhost:4200")
@@ -20,18 +23,22 @@ import com.musiclibraryapp.dto.PlaylistDTO;
 //playlist - favorite
 public class UserMusicController {
 	
+	@Autowired
+	PlaylistService playlistService;
 	
 	@PostMapping("/create-playlist")
     public ResponseEntity<PlaylistDTO> createPlaylist(@RequestBody PlaylistDTO playlistDTO) {
         // Implement the logic to create a new playlist and return it
+		Playlist createdPlaylist = playlistService.createPlaylist(playlistDTO);
+		playlistService.addSonglistToPlaylist(createdPlaylist,playlistDTO);
 		return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/song/{songId}/add-to-playlist/{playlistId}")
-    public ResponseEntity<PlaylistDTO> addSongToPlaylist(
-            @PathVariable Long songId,
+    public ResponseEntity<PlaylistDTO> addSongToPlaylist(@PathVariable Long songId,
             @PathVariable Long playlistId) {
         // Implement the logic to add a song to a playlist and return the updated playlist
+    	playlistService.addSongToPlaylist(playlistService.getPlaylistById(playlistId).get(),songId);
     	return ResponseEntity.noContent().build();
     }
 
