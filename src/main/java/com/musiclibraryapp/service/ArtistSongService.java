@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.musiclibraryapp.entity.ArtistSong;
+import com.musiclibraryapp.entity.Song;
+import com.musiclibraryapp.entity.User;
 import com.musiclibraryapp.repository.ArtistSongRepository;
 
 import java.util.List;
@@ -26,7 +28,10 @@ public class ArtistSongService {
         return artistSongRepository.findById(artistSongId);
     }
 
-    public ArtistSong createArtistSong(ArtistSong artistSong) {
+    public ArtistSong createArtistSong(User user, Song song) {
+        ArtistSong artistSong = new ArtistSong();
+        artistSong.setArtist(user);
+        artistSong.setSong(song);
         return artistSongRepository.save(artistSong);
     }
 
@@ -43,5 +48,9 @@ public class ArtistSongService {
 
     public void deleteArtistSong(Long artistSongId) {
         artistSongRepository.deleteById(artistSongId);
+    }
+
+    public List<Song> findSongsByPartialArtistName(String partialArtistName) {
+        return artistSongRepository.findSongByPartialArtistName(partialArtistName);
     }
 }
