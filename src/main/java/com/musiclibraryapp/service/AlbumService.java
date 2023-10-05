@@ -54,4 +54,8 @@ public class AlbumService {
     public void deleteAlbum(Long albumId) {
         albumRepository.deleteById(albumId);
     }
+
+    public List<Album> findTop5AlbumsByPartialAlbumName(String partialAlbumName) {
+        return albumRepository.findTop5AlbumsByPartialAlbumName(partialAlbumName);
+    }
 }

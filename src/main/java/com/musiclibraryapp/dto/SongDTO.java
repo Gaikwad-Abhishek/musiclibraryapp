@@ -16,6 +16,7 @@ public class SongDTO {
     private AlbumDTO album;  
     private Date createdAt;
     
+    private String directorName;
 
     // Constructors, getters, setters, and other methods
 
@@ -45,6 +46,10 @@ public class SongDTO {
 
     public Long getStreams() {
         return streams;
+    }
+
+    public String getDirectorName(){
+        return directorName;
     }
 
     public void setStreams(Long streams) {
@@ -81,6 +86,10 @@ public class SongDTO {
     
     public List<UserDTO> getArtist(){
     	return aristList;
+    }
+    
+    public void setDirectorName(String directorName){
+        this.directorName = directorName;
     }
 }
 
