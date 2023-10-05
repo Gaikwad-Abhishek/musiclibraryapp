@@ -8,6 +8,7 @@ import com.musiclibraryapp.dto.SongDTO;
 import com.musiclibraryapp.entity.Album;
 import com.musiclibraryapp.entity.Genre;
 import com.musiclibraryapp.entity.Song;
+import com.musiclibraryapp.entity.User;
 import com.musiclibraryapp.repository.SongRepository;
 
 import java.util.List;
@@ -19,6 +20,12 @@ public class SongService {
     
     @Autowired
     EntityDTOMapper dtoMapper;
+
+    @Autowired
+    UserService userService;
+
+    @Autowired
+    ArtistSongService artistSongService;
     
     @Autowired
     GenreService genreService;
@@ -41,6 +48,7 @@ public class SongService {
     }
     
     public boolean createSong(Album album,List<SongDTO> songs) {
+        User user = album.getArtistId();
     	
     	for(SongDTO songDTO : songs) {
     		
@@ -53,6 +61,8 @@ public class SongService {
 	        song.setAlbumId(album);
 	
     		songRepository.save(song);
+
+            artistSongService.createArtistSong(user, song);
     	
     	}
         
@@ -72,5 +82,10 @@ public class SongService {
 
     public void deleteSong(Long songId) {
         songRepository.deleteById(songId);
+    }
+
+    public List<Song> searchSongsByPartialTitle(String partialTitle) {
+        //return songRepository.findByPartialSongTitle(partialTitle);
+        return songRepository.findByPartialSongTitleWithTop2Streams(partialTitle);
     }
 }
