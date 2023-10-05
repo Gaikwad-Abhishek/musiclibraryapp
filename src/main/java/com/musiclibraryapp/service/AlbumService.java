@@ -13,7 +13,10 @@ import com.musiclibraryapp.repository.AlbumRepository;
 @Service
 public class AlbumService {
     private final AlbumRepository albumRepository;
-
+    
+    @Autowired
+    UserService userService;
+    
     @Autowired
     public AlbumService(AlbumRepository albumRepository) {
         this.albumRepository = albumRepository;
@@ -27,9 +30,13 @@ public class AlbumService {
         return albumRepository.findById(albumId);
     }
 
-    public Album createAlbum(AlbumDTO album) {
+    public Album createAlbum(String username,AlbumDTO album) {
     	Album newAlbum = new Album();
     	newAlbum.setAlbumName(album.getAlbumName());
+    	newAlbum.setAlbumLength(album.getAlbumLength());
+    	newAlbum.setNumOfSongs(album.getNumOfSongs());
+    	newAlbum.setStreams(album.getStreams());
+    	newAlbum.setArtistId(userService.getByName(username).get());
         return albumRepository.save(newAlbum);
     }
 

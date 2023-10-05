@@ -25,6 +25,10 @@ public class GenreService {
     public Optional<Genre> getGenreById(long genreId) {
         return genreRepository.findById(genreId);
     }
+    
+//    public Optional<Genre> getGenreByName(long genreId) {
+//        return genreRepository.findByName(genreId);
+//    }
 
     public Genre createGenre(Genre genre) {
         return genreRepository.save(genre);

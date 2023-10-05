@@ -10,7 +10,7 @@ public class SongDTO {
     private String songTitle;
     private Double songDuration;
     private Long streams;
-    private Genre genre;  
+    private Long genreId;  
     private AlbumDTO album;  
     private Date createdAt;
 
@@ -48,12 +48,12 @@ public class SongDTO {
         this.streams = streams;
     }
 
-    public Genre getGenre() {
-        return genre;
+    public Long getGenreId() {
+        return genreId;
     }
 
-    public void setGenre(Genre genre) {
-        this.genre = genre;
+    public void setGenreId(long genreId) {
+        this.genreId = genreId;
     }
 
     public AlbumDTO getAlbum() {

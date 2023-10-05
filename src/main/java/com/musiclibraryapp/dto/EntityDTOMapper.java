@@ -9,7 +9,7 @@ import com.musiclibraryapp.entity.Song;
 @Service
 public class EntityDTOMapper {
 	
-	public Song convertToSong(SongDTO songDTO) {
+	public Song convertToSong(Album album,SongDTO songDTO) {
 	    
 	        Song song = new Song();
 	        song.setSongId(songDTO.getSongId());
@@ -23,13 +23,14 @@ public class EntityDTOMapper {
 	            song.setGenreId(genre);
 	        }
 
-	        if (songDTO.getAlbum() != null) {
-	            Album album = new Album();
-	            album.setAlbumName(songDTO.getAlbum().getAlbumName()); // Assuming Album has a setter for albumName
-	            album.setAlbumLength(songDTO.getAlbum().getAlbumLength()); // Assuming Album has a setter for albumLength
-	            album.setNumOfSongs(songDTO.getAlbum().getNumOfSongs()); // Assuming Album has a setter for numOfSongs
-	            song.setAlbumId(album);
-	        }
+//	        if (songDTO.getAlbum() != null) {
+//	            Album album = new Album();
+//	            album.setAlbumName(songDTO.getAlbum().getAlbumName()); // Assuming Album has a setter for albumName
+//	            album.setAlbumLength(songDTO.getAlbum().getAlbumLength()); // Assuming Album has a setter for albumLength
+//	            album.setNumOfSongs(songDTO.getAlbum().getNumOfSongs()); // Assuming Album has a setter for numOfSongs
+//	            song.setAlbumId(album);
+//	        }
+	        song.setAlbumId(album);
 
 	        song.setCreatedAt(songDTO.getCreatedAt());
 

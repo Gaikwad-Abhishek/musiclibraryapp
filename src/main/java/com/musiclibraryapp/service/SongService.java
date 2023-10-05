@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 
 import com.musiclibraryapp.dto.EntityDTOMapper;
 import com.musiclibraryapp.dto.SongDTO;
+import com.musiclibraryapp.entity.Album;
+import com.musiclibraryapp.entity.Genre;
 import com.musiclibraryapp.entity.Song;
 import com.musiclibraryapp.repository.SongRepository;
 
@@ -17,6 +19,9 @@ public class SongService {
     
     @Autowired
     EntityDTOMapper dtoMapper;
+    
+    @Autowired
+    GenreService genreService;
     
     @Autowired
     public SongService(SongRepository songRepository) {
@@ -35,11 +40,19 @@ public class SongService {
         return songRepository.save(song);
     }
     
-    public boolean createSong(List<SongDTO> songs) {
+    public boolean createSong(Album album,List<SongDTO> songs) {
     	
-    	for(SongDTO song : songs) {
+    	for(SongDTO songDTO : songs) {
     		
-    		songRepository.save(dtoMapper.convertToSong(song));
+    		Song song = new Song();
+	        song.setSongId(songDTO.getSongId());
+	        song.setSongTitle(songDTO.getSongTitle());
+	        song.setSongDuration(songDTO.getSongDuration());
+	        song.setStreams(songDTO.getStreams());
+	        song.setGenreId(genreService.getGenreById(songDTO.getGenreId()).get());
+	        song.setAlbumId(album);
+	
+    		songRepository.save(song);
     	
     	}
         

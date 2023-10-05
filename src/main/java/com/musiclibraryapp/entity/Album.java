@@ -32,7 +32,7 @@ public class Album {
     private Long streams;
 
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "artist_id")
     private User artistId;
 
     @CreationTimestamp
