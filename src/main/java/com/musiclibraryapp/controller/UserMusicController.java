@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.musiclibraryapp.dto.PlaylistDTO;
 import com.musiclibraryapp.entity.Playlist;
+import com.musiclibraryapp.entity.Song;
 import com.musiclibraryapp.service.PlaylistService;
+import com.musiclibraryapp.service.PlaylistSongService;
 
 @RestController
 //@CrossOrigin(origins = "http://localhost:4200")
@@ -25,6 +27,9 @@ public class UserMusicController {
 	
 	@Autowired
 	PlaylistService playlistService;
+
+    @Autowired
+    PlaylistSongService playlistSongService;
 	
 	@PostMapping("/create-playlist")
     public ResponseEntity<PlaylistDTO> createPlaylist(@RequestBody PlaylistDTO playlistDTO) {
@@ -58,10 +63,10 @@ public class UserMusicController {
     	return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/get-playlist/{playlistId}")
-    public ResponseEntity<PlaylistDTO> getPlaylistById(@PathVariable Long playlistId) {
+    @GetMapping("/{playlistId}/get-playlist-songs")
+    public ResponseEntity<List<Song>> getPlaylistById(@PathVariable Long playlistId) {
         // Implement the logic to retrieve a playlist by its ID and return it
-    	return ResponseEntity.noContent().build();
+    	return ResponseEntity.ok(playlistSongService.getPlaylistSongs(playlistId));
     }
 
     @GetMapping("/get-public-playlist")
