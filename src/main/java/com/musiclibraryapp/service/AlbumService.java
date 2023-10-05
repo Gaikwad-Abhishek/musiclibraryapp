@@ -1,13 +1,14 @@
 package com.musiclibraryapp.service;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.musiclibraryapp.dto.AlbumDTO;
 import com.musiclibraryapp.entity.Album;
 import com.musiclibraryapp.repository.AlbumRepository;
-
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class AlbumService {
@@ -26,8 +27,10 @@ public class AlbumService {
         return albumRepository.findById(albumId);
     }
 
-    public Album createAlbum(Album album) {
-        return albumRepository.save(album);
+    public Album createAlbum(AlbumDTO album) {
+    	Album newAlbum = new Album();
+    	newAlbum.setAlbumName(album.getAlbumName());
+        return albumRepository.save(newAlbum);
     }
 
     public Album updateAlbum(Long albumId, Album updatedAlbum) {
