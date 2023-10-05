@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.musiclibraryapp.entity.Favorite;
+import com.musiclibraryapp.entity.Song;
+import com.musiclibraryapp.entity.User;
 import com.musiclibraryapp.repository.FavoriteRepository;
 
 import java.util.List;
@@ -12,6 +14,12 @@ import java.util.Optional;
 @Service
 public class FavoriteService {
     private final FavoriteRepository favoriteRepository;
+
+    @Autowired
+    UserService userService;
+
+    @Autowired
+    SongService songService;
 
     @Autowired
     public FavoriteService(FavoriteRepository favoriteRepository) {
@@ -26,8 +34,18 @@ public class FavoriteService {
         return favoriteRepository.findById(favoriteId);
     }
 
-    public Favorite createFavorite(Favorite favorite) {
-        return favoriteRepository.save(favorite);
+    public void  createOrRemoveFavorite(String username, long songId) {
+        User user = userService.getByName(username).get();
+        Song song = songService.getSongById(songId).get();
+        Favorite existingFavorite = favoriteRepository.findByUserAndSong(user, song);
+        if (existingFavorite != null) {
+            favoriteRepository.delete(existingFavorite);
+        } else {
+            Favorite newFavorite = new Favorite();
+            newFavorite.setUser(user);
+            newFavorite.setSong(song);
+            favoriteRepository.save(newFavorite);
+        }
     }
 
     public Favorite updateFavorite(Long favoriteId, Favorite updatedFavorite) {
