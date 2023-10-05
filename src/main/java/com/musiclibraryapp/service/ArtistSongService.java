@@ -49,4 +49,8 @@ public class ArtistSongService {
     public void deleteArtistSong(Long artistSongId) {
         artistSongRepository.deleteById(artistSongId);
     }
+
+    public List<Song> findSongsByPartialArtistName(String partialArtistName) {
+        return artistSongRepository.findSongByPartialArtistName(partialArtistName);
+    }
 }

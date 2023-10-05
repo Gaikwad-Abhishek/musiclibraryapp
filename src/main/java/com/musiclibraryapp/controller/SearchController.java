@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.musiclibraryapp.dto.AlbumDTO;
 import com.musiclibraryapp.dto.SearchDTO;
+import com.musiclibraryapp.entity.ArtistSong;
 import com.musiclibraryapp.entity.Song;
+import com.musiclibraryapp.service.ArtistSongService;
 import com.musiclibraryapp.service.SongService;
 
 @RestController
@@ -26,15 +28,39 @@ public class SearchController {
     @Autowired
     SongService songService;
 
+    @Autowired
+    ArtistSongService artistSongService;
+
 
     @PostMapping("/by")
-    public ResponseEntity<List> serchBySong(@RequestBody SearchDTO searchDTO){
+    public ResponseEntity<List> serchBy(@RequestBody SearchDTO searchDTO){
         System.out.println("Song name- " + searchDTO.getSearchTitle());
-        List allSong = new ArrayList<>();
-        allSong = songService.searchSongsByPartialTitle(searchDTO.getSearchTitle());
-        return ResponseEntity.status(HttpStatus.OK).body(allSong);
+        List DummyList = new ArrayList<>();
+        if(searchDTO.getSearchBy().equals("Song")){
+            return ResponseEntity.status(HttpStatus.OK).body(searchBySong(searchDTO.getSearchTitle()));
+        }
+        if(searchDTO.getSearchBy().equals("Artist")){
+            return ResponseEntity.status(HttpStatus.OK).body(searchByArtist(searchDTO.getSearchTitle()));
+        }
+  
+        return ResponseEntity.status(HttpStatus.OK).body(DummyList);
     }
 
-    
+    public List searchBySong(String searchTitle){
+        System.out.println("Inside search by song");
+        List allSong = new ArrayList<>();
+        allSong = songService.searchSongsByPartialTitle(searchTitle);
+        return allSong;
+    }
+
+    public List searchByArtist(String searchTitle){
+        System.out.println("Inside search by artist");
+        List allSong = new ArrayList<>();
+        allSong = artistSongService.findSongsByPartialArtistName(searchTitle);
+        return allSong;
+    }
+
+
+
     
 }
