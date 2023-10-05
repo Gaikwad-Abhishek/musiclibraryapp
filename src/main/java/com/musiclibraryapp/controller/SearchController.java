@@ -79,7 +79,8 @@ public class SearchController {
     @GetMapping("/genre/{genreId}")
     public List<Song> getSongByGenre(@PathVariable Long genreId){
 //    	return songService.getSongbyGenre(genreId);
-    	return songService.getAllSongs();
+//    	return songService.getAllSongs();
+        return songService.getSongsByGenreId(genreId);
     }
     
     public List searchByDirector(String searchTitle){

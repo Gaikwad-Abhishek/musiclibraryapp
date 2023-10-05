@@ -105,4 +105,8 @@ public class SongService {
 //    public List<Song> getSongbyGenre(Long genreId){
 //    	return songRepository.findSongWithGenreId(genreId);
 //    }
+
+    public List<Song> getSongsByGenreId(long genreId) {
+        return songRepository.findByGenreId(genreService.getGenreById(genreId).get());
+    }
 }

@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.musiclibraryapp.dto.PlaylistDTO;
 import com.musiclibraryapp.entity.Playlist;
+import com.musiclibraryapp.service.FavoriteService;
 import com.musiclibraryapp.service.PlaylistService;
 
 @RestController
@@ -25,6 +28,9 @@ public class UserMusicController {
 	
 	@Autowired
 	PlaylistService playlistService;
+
+    @Autowired
+    FavoriteService favoriteService;
 	
 	@PostMapping("/create-playlist")
     public ResponseEntity<PlaylistDTO> createPlaylist(@RequestBody PlaylistDTO playlistDTO) {
@@ -76,17 +82,11 @@ public class UserMusicController {
     	return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/song/{id}/add-to-favourite")
-    public ResponseEntity<Void> addSongToFavourite(@PathVariable Long id) {
-        // Implement the logic to add a song to favorites
-        // Return an appropriate response, e.g., HttpStatus.CREATED for success
-    	return ResponseEntity.noContent().build();
-    }
-
-    @PostMapping("/song/{id}/remove-from-favourite")
-    public ResponseEntity<Void> removeSongFromFavourite(@PathVariable Long id) {
-        // Implement the logic to remove a song from favorites
-        // Return an appropriate response, e.g., HttpStatus.NO_CONTENT for success
-    	return ResponseEntity.noContent().build();
+    @PostMapping("/song/{id}/favourite")
+    public ResponseEntity<String> addSongToFavourite(@PathVariable Long id) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        favoriteService.createOrRemoveFavorite(username, id);
+    	return ResponseEntity.ok("added to favourite");
     }
 }
