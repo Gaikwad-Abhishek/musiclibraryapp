@@ -57,8 +57,14 @@ public class UserMusicController {
     	return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/get-all-playlist")
+    @GetMapping("/get-public-playlist")
     public ResponseEntity<List<PlaylistDTO>> getAllPlaylists() {
+        // Implement the logic to retrieve all playlists and return them as a list
+    	return ResponseEntity.noContent().build();
+    }
+    
+    @GetMapping("/get-user-playlist")
+    public ResponseEntity<List<PlaylistDTO>> getUserPlaylists() {
         // Implement the logic to retrieve all playlists and return them as a list
     	return ResponseEntity.noContent().build();
     }
