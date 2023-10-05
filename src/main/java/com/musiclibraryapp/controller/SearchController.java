@@ -18,6 +18,7 @@ import com.musiclibraryapp.entity.ArtistSong;
 import com.musiclibraryapp.entity.Song;
 import com.musiclibraryapp.service.AlbumService;
 import com.musiclibraryapp.service.ArtistSongService;
+import com.musiclibraryapp.service.DirectorSongService;
 import com.musiclibraryapp.service.SongService;
 
 @RestController
@@ -31,6 +32,9 @@ public class SearchController {
 
     @Autowired
     ArtistSongService artistSongService;
+
+    @Autowired
+    DirectorSongService directorSongService;
 
     @Autowired
     AlbumService albumService;
@@ -49,6 +53,9 @@ public class SearchController {
         if(searchDTO.getSearchBy().equals("Album")){
             return ResponseEntity.status(HttpStatus.OK).body(searchByAlbum(searchDTO.getSearchTitle()));
         }
+        if(searchDTO.getSearchBy().equals("Directior")){
+            return ResponseEntity.status(HttpStatus.OK).body(searchByDirector(searchDTO.getSearchTitle()));
+        }
   
         return ResponseEntity.status(HttpStatus.OK).body(DummyList);
     }
@@ -64,6 +71,13 @@ public class SearchController {
         System.out.println("Inside search by artist");
         List allSong = new ArrayList<>();
         allSong = artistSongService.findSongsByPartialArtistName(searchTitle);
+        return allSong;
+    }
+
+    public List searchByDirector(String searchTitle){
+        System.out.println("Inside search by director");
+        List allSong = new ArrayList<>();
+        allSong = directorSongService.findSongsByPartialDirectorName(searchTitle);
         return allSong;
     }
 

@@ -13,6 +13,7 @@ public class SongDTO {
     private Long genreId;  
     private AlbumDTO album;  
     private Date createdAt;
+    private String directorName;
 
     // Constructors, getters, setters, and other methods
 
@@ -44,6 +45,10 @@ public class SongDTO {
         return streams;
     }
 
+    public String getDirectorName(){
+        return directorName;
+    }
+
     public void setStreams(Long streams) {
         this.streams = streams;
     }
@@ -70,6 +75,10 @@ public class SongDTO {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public void setDirectorName(String directorName){
+        this.directorName = directorName;
     }
 }
 

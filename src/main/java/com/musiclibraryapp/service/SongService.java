@@ -26,6 +26,9 @@ public class SongService {
 
     @Autowired
     ArtistSongService artistSongService;
+
+    @Autowired
+    DirectorSongService directorSongService;
     
     @Autowired
     GenreService genreService;
@@ -63,7 +66,13 @@ public class SongService {
     		songRepository.save(song);
 
             artistSongService.createArtistSong(user, song);
-    	
+            System.out.println("director name - " +songDTO.getDirectorName() );
+            if(songDTO.getDirectorName() != null && !songDTO.getDirectorName().isEmpty()){
+                directorSongService.createDirectorSong(userService.getByName(songDTO.getDirectorName()).get(), song);
+            }
+            else{
+                directorSongService.createDirectorSong(user, song);
+            }
     	}
         
     	return true;
