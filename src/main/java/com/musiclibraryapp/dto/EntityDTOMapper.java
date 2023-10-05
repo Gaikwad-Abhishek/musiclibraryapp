@@ -17,11 +17,11 @@ public class EntityDTOMapper {
 	        song.setSongDuration(songDTO.getSongDuration());
 	        song.setStreams(songDTO.getStreams());
 
-	        if (songDTO.getGenre() != null) {
-	            Genre genre = new Genre();
-	            genre.setGenreName(songDTO.getGenre().getGenreName()); // Assuming Genre has a setter for genreName
-	            song.setGenreId(genre);
-	        }
+	        // if (songDTO.getGenre() != null) {
+	        //     Genre genre = new Genre();
+	        //     genre.setGenreName(songDTO.getGenre().getGenreName()); // Assuming Genre has a setter for genreName
+	        //     song.setGenreId(genre);
+	        // }
 
 //	        if (songDTO.getAlbum() != null) {
 //	            Album album = new Album();
