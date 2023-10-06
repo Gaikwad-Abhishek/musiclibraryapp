@@ -43,7 +43,7 @@ public class PlaylistService {
     }
     
     public boolean addSonglistToPlaylist(Playlist playlist,PlaylistDTO playlistDTO) {
-    	
+    	if(playlistDTO.getSongs() != null){
     	for(SongDTO addToplaylist: playlistDTO.getSongs()) {
     		
     		PlaylistSong addSong = new PlaylistSong();
@@ -53,6 +53,8 @@ public class PlaylistService {
     		
     	}
     	return true;
+        }
+        return false;
     }
     
     public boolean addSongToPlaylist(Playlist playlist,Long songId) {
@@ -64,6 +66,12 @@ public class PlaylistService {
     		
     	return true;
     }
+
+    public boolean removeSongFromPlaylist(Long songId, Long PlaylistId){
+        playlistSongService.deletePlaylistSong(songId,PlaylistId);
+        return true;
+    }
+
 
     public Playlist updatePlaylist(Long playlistId, Playlist updatedPlaylist) {
         Optional<Playlist> existingPlaylist = playlistRepository.findById(playlistId);

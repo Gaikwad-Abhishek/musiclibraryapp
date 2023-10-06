@@ -52,4 +52,8 @@ public class PlaylistSongService {
     public void deletePlaylistSong(Long playlistSongId) {
         playlistSongRepository.deleteById(playlistSongId);
     }
+
+    public void deletePlaylistSong(Long songId,Long playlistId) {
+        playlistSongRepository.deleteBySongIdAndPlaylistId(songId,playlistId);
+    }
 }

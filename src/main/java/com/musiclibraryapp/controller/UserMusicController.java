@@ -38,14 +38,14 @@ public class UserMusicController {
     FavoriteService favoriteService;
 	
 	@PostMapping("/create-playlist")
-    public ResponseEntity<PlaylistDTO> createPlaylist(@RequestBody PlaylistDTO playlistDTO) {
+    public ResponseEntity<Long> createPlaylist(@RequestBody PlaylistDTO playlistDTO) {
         // Implement the logic to create a new playlist and return it
 		Playlist createdPlaylist = playlistService.createPlaylist(playlistDTO);
 		playlistService.addSonglistToPlaylist(createdPlaylist,playlistDTO);
-		return ResponseEntity.noContent().build();
+		return ResponseEntity.ok(createdPlaylist.getPlaylistId());
     }
 
-    @PostMapping("/song/{songId}/add-to-playlist/{playlistId}")
+    @PostMapping("/song/{songId}/add-to/{playlistId}")
     public ResponseEntity<PlaylistDTO> addSongToPlaylist(@PathVariable Long songId,
             @PathVariable Long playlistId) {
         // Implement the logic to add a song to a playlist and return the updated playlist
@@ -53,11 +53,13 @@ public class UserMusicController {
     	return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/song/{songId}/remove-from-playlist/{playlistId}")
+    @PostMapping("/song/{songId}/remove-from/{playlistId}")
     public ResponseEntity<PlaylistDTO> removeSongFromPlaylist(
             @PathVariable Long songId,
             @PathVariable Long playlistId) {
         // Implement the logic to remove a song from a playlist and return the updated playlist
+        playlistService.removeSongFromPlaylist(songId,playlistId);
+        System.out.println(songId+" "+playlistId);
     	return ResponseEntity.noContent().build();
     }
 
