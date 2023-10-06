@@ -7,6 +7,7 @@ import com.musiclibraryapp.dto.PlaylistDTO;
 import com.musiclibraryapp.dto.SongDTO;
 import com.musiclibraryapp.entity.Playlist;
 import com.musiclibraryapp.entity.PlaylistSong;
+import com.musiclibraryapp.entity.User;
 import com.musiclibraryapp.repository.PlaylistRepository;
 
 import java.util.List;
@@ -31,14 +32,19 @@ public class PlaylistService {
         return playlistRepository.findAll();
     }
 
+    public List<Playlist> getUserPlaylist(User user){
+        return playlistRepository.findByUserId(user);
+    }
+
     public Optional<Playlist> getPlaylistById(Long playlistId) {
         return playlistRepository.findById(playlistId);
     }
 
-    public Playlist createPlaylist(PlaylistDTO playlistDTO) {
+    public Playlist createPlaylist(User user,PlaylistDTO playlistDTO) {
     	Playlist newplayPlaylist = new Playlist() ;
     	newplayPlaylist.setPlaylistName(playlistDTO.getPlaylistName());
     	newplayPlaylist.setPlaylistDescription(playlistDTO.getPlaylistDescription());
+        newplayPlaylist.setUserId(user);
         return playlistRepository.save(newplayPlaylist);
     }
     
