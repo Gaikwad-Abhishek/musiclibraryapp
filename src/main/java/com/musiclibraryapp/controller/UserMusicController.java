@@ -51,19 +51,19 @@ public class UserMusicController {
     }
 
     @PostMapping("/song/{songId}/add-to/{playlistId}")
-    public ResponseEntity<PlaylistDTO> addSongToPlaylist(@PathVariable Long songId,
+    public ResponseEntity<String> addSongToPlaylist(@PathVariable Long songId,
             @PathVariable Long playlistId) {
         playlistService.addSongToPlaylist(playlistService.getPlaylistById(playlistId).get(), songId);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok("Song Added");
     }
 
     @PostMapping("/song/{songId}/remove-from/{playlistId}")
-    public ResponseEntity<PlaylistDTO> removeSongFromPlaylist(
+    public ResponseEntity<String> removeSongFromPlaylist(
             @PathVariable Long songId,
             @PathVariable Long playlistId) {
         playlistService.removeSongFromPlaylist(songId, playlistId);
         System.out.println(songId + " " + playlistId);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok("Song Removed");
     }
 
     @PostMapping("/{playlistId}/update")
