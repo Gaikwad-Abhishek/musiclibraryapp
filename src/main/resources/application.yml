@@ -1,8 +1,8 @@
 spring:
   datasource:
     url: 'jdbc:mysql://localhost:3306/music-library'
-    username: prodapt
-    password: we1c@me1
+    username: bibhu04
+    password: bibhu04
   jpa:
     properties:
       hibernate:

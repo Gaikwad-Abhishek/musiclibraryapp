@@ -18,10 +18,12 @@ import com.musiclibraryapp.dto.AlbumDTO;
 import com.musiclibraryapp.dto.SongDTO;
 import com.musiclibraryapp.entity.Album;
 import com.musiclibraryapp.entity.Genre;
+import com.musiclibraryapp.entity.User;
 import com.musiclibraryapp.repository.AlbumRepository;
 import com.musiclibraryapp.service.AlbumService;
 import com.musiclibraryapp.service.GenreService;
 import com.musiclibraryapp.service.SongService;
+import com.musiclibraryapp.service.UserService;
 
 @RestController
 //@CrossOrigin(origins = "http://localhost:4200")
@@ -35,13 +37,16 @@ public class MediaController {
 	
 	@Autowired
 	SongService songService;
+
+    @Autowired
+    UserService userService;
 	
 	@Autowired
 	GenreService genreService;
 	
 	@PostMapping("/create-album")
     public ResponseEntity<AlbumDTO> createAlbum(@RequestBody AlbumDTO albumDTO) {
-        // Implement the logic to create a new album and return it
+       
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
 		Album newAlbum = albumService.createAlbum(username,albumDTO);
@@ -51,15 +56,11 @@ public class MediaController {
 
     @PostMapping("{albumId}/delete")
     public ResponseEntity<Void> deleteAlbum(@PathVariable Long albumId) {
-        // Implement the logic to delete an album by its ID
-        // Return an appropriate response, e.g., HttpStatus.NO_CONTENT for success
     	return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/{songId}/delete")
     public ResponseEntity<Void> deleteSong(@PathVariable Long songId) {
-        // Implement the logic to delete a song by its ID
-        // Return an appropriate response, e.g., HttpStatus.NO_CONTENT for success
     	return ResponseEntity.noContent().build();
     }
 
@@ -67,12 +68,16 @@ public class MediaController {
     public ResponseEntity<SongDTO> updateSong(
             @PathVariable Long songId,
             @RequestBody SongDTO updatedSong) {
-        // Implement the logic to update a song and return the updated song
     	return ResponseEntity.noContent().build();
     }
     
     @GetMapping("/get-genre")
     public ResponseEntity<List<Genre>> getGenre(){
     	return ResponseEntity.ok(genreService.getAllGenres());
+    }
+
+    @GetMapping("/artist")
+    public ResponseEntity<List<User>> getArtist(){
+    	return ResponseEntity.ok(userService.getAllUsers());
     }
 }

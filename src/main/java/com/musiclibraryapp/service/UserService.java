@@ -2,6 +2,7 @@ package com.musiclibraryapp.service;
 
 
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,10 @@ public class UserService {
 
     public Optional<User> getByName(String name) {
         return userRepository.findByName(name);
+    }
+
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
     
 }
