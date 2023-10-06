@@ -23,6 +23,8 @@ public interface SongRepository extends JpaRepository<Song, Long> {
        "LIMIT 2")
     List<Song> findByPartialSongTitleWithTop2Streams(String partialTitle);
 
+    List<Song> findBySongTitle(String songTitle);
+
 
  
 }

@@ -34,9 +34,23 @@ public class FavoriteService {
         return favoriteRepository.findById(favoriteId);
     }
 
-    public void  createOrRemoveFavorite(String username, long songId) {
+    // public void  createOrRemoveFavorite(String username, long songId) {
+    //     User user = userService.getByName(username).get();
+    //     Song song = songService.getSongById(songId).get();
+    //     Favorite existingFavorite = favoriteRepository.findByUserAndSong(user, song);
+    //     if (existingFavorite != null) {
+    //         favoriteRepository.delete(existingFavorite);
+    //     } else {
+    //         Favorite newFavorite = new Favorite();
+    //         newFavorite.setUser(user);
+    //         newFavorite.setSong(song);
+    //         favoriteRepository.save(newFavorite);
+    //     }
+    // }
+
+    public void  createOrRemoveFavorite(String username, String songTitle) {
         User user = userService.getByName(username).get();
-        Song song = songService.getSongById(songId).get();
+        Song song = songService.getSongBySongTitle(songTitle).get(0);
         Favorite existingFavorite = favoriteRepository.findByUserAndSong(user, song);
         if (existingFavorite != null) {
             favoriteRepository.delete(existingFavorite);
@@ -46,6 +60,7 @@ public class FavoriteService {
             newFavorite.setSong(song);
             favoriteRepository.save(newFavorite);
         }
+
     }
 
     public Favorite updateFavorite(Long favoriteId, Favorite updatedFavorite) {

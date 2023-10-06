@@ -109,4 +109,8 @@ public class SongService {
     public List<Song> getSongsByGenreId(long genreId) {
         return songRepository.findByGenreId(genreService.getGenreById(genreId).get());
     }
+
+    public List<Song> getSongBySongTitle(String songName) {
+        return songRepository.findBySongTitle(songName);
+    }
 }

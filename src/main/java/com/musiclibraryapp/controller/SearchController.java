@@ -44,6 +44,7 @@ public class SearchController {
 
     @PostMapping("/by")
     public ResponseEntity<List> serchBy(@RequestBody SearchDTO searchDTO){
+        System.out.println("#####################################");
         System.out.println("Song name- " + searchDTO.getSearchTitle());
         List DummyList = new ArrayList<>();
         if(searchDTO.getSearchBy().equals("Song")){
@@ -55,7 +56,7 @@ public class SearchController {
         if(searchDTO.getSearchBy().equals("Album")){
             return ResponseEntity.status(HttpStatus.OK).body(searchByAlbum(searchDTO.getSearchTitle()));
         }
-        if(searchDTO.getSearchBy().equals("Directior")){
+        if(searchDTO.getSearchBy().equals("Director")){
             return ResponseEntity.status(HttpStatus.OK).body(searchByDirector(searchDTO.getSearchTitle()));
         }
   

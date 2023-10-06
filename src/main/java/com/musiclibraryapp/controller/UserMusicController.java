@@ -87,11 +87,20 @@ public class UserMusicController {
     	return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/song/{id}/favourite")
-    public ResponseEntity<String> addSongToFavourite(@PathVariable Long id) {
+    // @PostMapping("/song/{id}/favourite")
+    // public ResponseEntity<String> addSongToFavourite(@PathVariable Long id) {
+    //     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    //     String username = authentication.getName();
+    //     favoriteService.createOrRemoveFavorite(username, id);
+    // 	return ResponseEntity.ok("added to favourite");
+    // }
+
+    @PostMapping("/song/{songName}/favourite")
+    public ResponseEntity<String> addSongToFavourite(@PathVariable String songName) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
-        favoriteService.createOrRemoveFavorite(username, id);
-    	return ResponseEntity.ok("added to favourite");
+        favoriteService.createOrRemoveFavorite(username, songName);
+        return ResponseEntity.ok("added to favourite");
+
     }
 }
